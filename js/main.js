@@ -1,12 +1,18 @@
+const $form = document.querySelector('#form')
+$form.addEventListener('submit', handleSubmit)
 
-const cantidadCopas= 2;
-let valorIngresado = parseInt(prompt("Bienvenido \n\nEscriba cuantas copas del mundo posee Argentina :"));
-
-
-while (valorIngresado != cantidadCopas) {
-    
-    alert("Incorrecto,ingrese un nuevo valor nuevamente.");
-    valorIngresado=parseInt(prompt("Escriba cuantas copas del mundo posee Argentina :"));
+async function handleSubmit(event) {
+    event.preventDefault()
+    const form = new FormData(this)
+    const response = await fetch(this.action, {
+        method: this.method,
+        body: form,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    if (response.ok) {
+        this.reset
+        alert('Formulario enviado!')
+    }
 }
-
-alert("Correcto,Argentina posee 2 copas el mundo.");

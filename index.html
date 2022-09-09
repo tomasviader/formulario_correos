@@ -4,14 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="js/main.js"></script>
+    <title>Formulario Gabriel</title>
+    <!-- <script src="js/main.js"></script> -->
 </head>
 <body>
-    <h1>Desafio Complementario - Clase #3</h1>
-    <br>
-    <br>
+    <h1>Formulario</h1>
     <br>
 
+    <form id="form" action="https://formspree.io/f/xrgderae" method="POST">
+        <label for="name">Nombre</label>
+        <input type="text" name="name">
+        <br>
+        <label for="email">Correo</label>
+        <input type="email" name="email">
+        <br>
+        <label for="message">Mensaje</label>
+        <textarea name="message" id="message" cols="30" rows="10"></textarea>
+        <br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+    const $form = document.querySelector('#form')
+    $form.addEventListener('submit', handleSubmit)
+
+    async function handleSubmit(event) {
+        event.preventDefault()
+        const form = new FormData(this)
+        const response = await fetch(this.action, {
+            method: this.method,
+            body: form,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        if (response.ok) {
+            this.reset()
+            alert('Formulario enviado!')
+        }
+    }
+    </script>
 </body>
 </html>
